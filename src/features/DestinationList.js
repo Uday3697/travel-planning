@@ -1,33 +1,30 @@
-// features/DestinationList.js
-import React, { useState, useEffect } from 'react';
-import { FlatList, Text, View, ActivityIndicator, Image, StyleSheet } from 'react-native';
-import destinationsData from '../data/destinations.json'; 
+import React, { useState } from 'react';
+import { FlatList, Text, View, ActivityIndicator, Image, StyleSheet, TextInput, Button, TouchableOpacity } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import destinationsData from '../data/destinations.json';
 
-const DestinationList = () => {
+const DestinationList = ({ navigation }) => {
   const [destinations, setDestinations] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
-  useEffect(() => {
-    fetchDestinations();
-  }, [page]);
-
-  const fetchDestinations = () => {
-    try {
-      const response = destinationsData;
-      setDestinations((prevDestinations) => [
-        ...prevDestinations,
-        ...response.destinations.slice((page - 1) * 10, page * 10)
-      ]);
-      setLoading(false);
-    } catch (error) {
-      console.error(error);
-      setLoading(false);
-    }
+  const handleSearch = () => {
+    setLoading(true);
+    const results = destinationsData.destinations.filter((destination) =>
+      destination.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setDestinations(results);
+    setLoading(false);
   };
 
-  const renderFooter = () => {
-    return loading ? <ActivityIndicator size="large" color="#0000ff" /> : null;
+  const handlePlanTrip = async (destination) => {
+    const trip = {
+      destination,
+      date: new Date().toISOString(), // Placeholder for selected dates
+      notes: '', // Placeholder for notes
+    };
+    await AsyncStorage.setItem('plannedTrip', JSON.stringify(trip));
+    navigation.navigate('TripPlanner', { trip });
   };
 
   const renderDestination = ({ item }) => (
@@ -37,23 +34,46 @@ const DestinationList = () => {
         <Text style={styles.name}>{item.name}</Text>
         <Text style={styles.city}>{item.city}</Text>
         <Text style={styles.description}>{item.description}</Text>
+        <Button title="Plan a Trip" onPress={() => handlePlanTrip(item)} />
       </View>
     </View>
   );
 
   return (
-    <FlatList
-      data={destinations}
-      keyExtractor={(item) => item.id.toString()}
-      renderItem={renderDestination}
-      onEndReached={() => setPage(page + 1)}
-      onEndReachedThreshold={0.5}
-      ListFooterComponent={renderFooter}
-    />
+    <View style={styles.container}>
+      <TextInput
+        style={styles.searchBar}
+        placeholder="Search Destinations..."
+        value={searchQuery}
+        onChangeText={setSearchQuery}
+      />
+      <Button title="Search" onPress={handleSearch} />
+      {loading ? (
+        <ActivityIndicator size="large" color="#0000ff" />
+      ) : (
+        <FlatList
+          data={destinations}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={renderDestination}
+        />
+      )}
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 16,
+  },
+  searchBar: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    paddingHorizontal: 8,
+    borderRadius: 8,
+    marginBottom: 10,
+  },
   destinationContainer: {
     flexDirection: 'row',
     marginVertical: 10,
@@ -70,6 +90,7 @@ const styles = StyleSheet.create({
   infoContainer: {
     marginLeft: 10,
     justifyContent: 'center',
+    flex: 1,
   },
   name: {
     fontSize: 18,

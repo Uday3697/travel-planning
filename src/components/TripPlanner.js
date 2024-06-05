@@ -1,40 +1,54 @@
-// components/TripPlanner.js
+
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const TripPlanner = () => {
-  const [trip, setTrip] = useState({ destinations: [], dates: '', notes: '' });
+const TripPlanner = ({ route }) => {
+  const { trip } = route.params;
+  const [notes, setNotes] = useState('');
 
-  const saveTrip = async () => {
-    try {
-      await AsyncStorage.setItem('trip', JSON.stringify(trip));
-      alert('Trip saved!');
-    } catch (error) {
-      console.error(error);
-    }
+  const handleSaveTrip = async () => {
+    const tripWithNotes = { ...trip, notes };
+    await AsyncStorage.setItem('plannedTrip', JSON.stringify(tripWithNotes));
+    alert('Trip saved successfully!');
   };
 
   return (
-    <View>
+    <View style={styles.container}>
+      <Text style={styles.title}>Trip Planner</Text>
+      <Text style={styles.destination}>Destination: {trip.destination.name}</Text>
       <TextInput
-        placeholder="Destinations"
-        value={trip.destinations.join(', ')}
-        onChangeText={(text) => setTrip({ ...trip, destinations: text.split(', ') })}
-      />
-      <TextInput
-        placeholder="Dates"
-        value={trip.dates}
-        onChangeText={(text) => setTrip({ ...trip, dates: text })}
-      />
-      <TextInput
+        style={styles.input}
         placeholder="Notes"
-        value={trip.notes}
-        onChangeText={(text) => setTrip({ ...trip, notes: text })}
+        value={notes}
+        onChangeText={setNotes}
       />
-      <Button title="Save Trip" onPress={saveTrip} />
+      <Button title="Save Trip" onPress={handleSaveTrip} />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 16,
+  },
+  title: {
+    fontSize: 24,
+    marginBottom: 16,
+  },
+  destination: {
+    fontSize: 18,
+    marginBottom: 12,
+  },
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 12,
+    paddingHorizontal: 8,
+    borderRadius: 8,
+  },
+});
 
 export default TripPlanner;

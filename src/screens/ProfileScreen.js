@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { logOut } from '../store/authSlice';
+import TripPlanner from '../components/TripPlanner';
+import SearchBar from '../components/SearchBar';
 
 const ProfileScreen = () => {
   const user = useSelector((state) => state.auth.user);
