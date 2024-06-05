@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
+import { View, TextInput, Button, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { signUp } from '../store/authSlice';
 
-
-const SignUpScreen = () => {
+const SignUpScreen = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
 
   const handleSignUp = () => {
     dispatch(signUp({ username, password }));
+  };
+
+  const goToLogin = () => {
+    navigation.navigate('Login');
   };
 
   return (
@@ -30,6 +33,9 @@ const SignUpScreen = () => {
         secureTextEntry
       />
       <Button title="Sign Up" onPress={handleSignUp} />
+      <TouchableOpacity onPress={goToLogin}>
+        <Text style={styles.loginLink}>Already have an account? <Text style={{color:"blue"}}>Click here </Text> to login.</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -50,6 +56,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 12,
     paddingHorizontal: 8,
+    borderRadius: 8,
+  },
+  loginLink: {
+    color: '#000',
+    marginTop: 12,
+    textAlign: 'center',
+    fontSize:9
+
   },
 });
 

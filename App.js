@@ -9,6 +9,9 @@ import DestinationList from './src/features/DestinationList';
 import TripPlanner from './src/components/TripPlanner';
 import PopularDestinations from './src/components/PopularDestinations';
 import ShareTrip from './src/components/ShareTrip';
+import SignUpScreen from './src/screens/SignupScreen';
+import LoginScreen from './src/screens/LoginSCreen';
+import ProfileScreen from './src/screens/ProfileScreen';
 
 
 const Stack = createStackNavigator();
@@ -28,8 +31,8 @@ const AppNavigator = () => {
         </>
       ) : (
         <>
-          <Stack.Screen name="SignUp" component={SignUpScreen} />
-          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="SignUp" component={SignUpScreen} options={{headerShown:false}} />
+          <Stack.Screen name="Login" component={LoginScreen}   options={{headerShown:false}}/>
         </>
       )}
     </Stack.Navigator>
