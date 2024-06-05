@@ -2,7 +2,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Provider } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistor, store } from './src/store/configureStore';
 import DestinationList from './src/features/DestinationList';
@@ -13,7 +13,28 @@ import ShareTrip from './src/components/ShareTrip';
 
 const Stack = createStackNavigator();
 
+const AppNavigator = () => {
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
+  return (
+    <Stack.Navigator initialRouteName="Login">
+      {isAuthenticated ? (
+        <>
+          <Stack.Screen name="Profile" component={ProfileScreen} />
+          <Stack.Screen name="PopularDestinations" component={PopularDestinations} />
+          <Stack.Screen name="Destinations" component={DestinationList} />
+          <Stack.Screen name="TripPlanner" component={TripPlanner} />
+          <Stack.Screen name="ShareTrip" component={ShareTrip} />
+        </>
+      ) : (
+        <>
+          <Stack.Screen name="SignUp" component={SignUpScreen} />
+          <Stack.Screen name="Login" component={LoginScreen} />
+        </>
+      )}
+    </Stack.Navigator>
+  );
+};
 
 
 const App = () => {
@@ -21,12 +42,7 @@ const App = () => {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="Destinations">
-            <Stack.Screen name="Destinations" component={DestinationList} />
-            <Stack.Screen name="TripPlanner" component={TripPlanner} />
-            <Stack.Screen name="PopularDestinations" component={PopularDestinations} />
-            <Stack.Screen name="ShareTrip" component={ShareTrip} />
-          </Stack.Navigator>
+        <AppNavigator />
         </NavigationContainer>
       </PersistGate>
     </Provider>

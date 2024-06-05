@@ -1,0 +1,30 @@
+[
+    {
+      "id": 1,
+      "name": "Taj Mahal",
+      "city": "Agra",
+      "description": "A symbol of love and a UNESCO World Heritage Site.",
+      "imageUrl": "https://www.google.com/imgres?q=tajmahal&imgurl=https%3A%2F%2Fmedia.gettyimages.com%2Fid%2F155096944%2Fphoto%2Ftaj-mahal-sunrise.jpg%3Fs%3D612x612%26w%3Dgi%26k%3D20%26c%3Dg2V02VWmnOYsny7kVCvFDeNG33T3WRsyC_hRFH1j_RQ%3D&imgrefurl=https%3A%2F%2Fwww.gettyimages.com%2Fphotos%2Ftaj-mahal&docid=jF-UluvSo2lRcM&tbnid=f-zDLYAPCvg3NM&vet=12ahUKEwiRmsPBgcSGAxWFcGwGHfD4BUUQM3oECHwQAA..i&w=612&h=487&hcb=2&ved=2ahUKEwiRmsPBgcSGAxWFcGwGHfD4BUUQM3oECHwQAA",
+      "latitude": 27.1751,
+      "longitude": 78.0421
+    },
+    {
+      "id": 2,
+      "name": "Gateway of India",
+      "city": "Mumbai",
+      "description": "An iconic landmark in Mumbai built during the 20th century.",
+      "imageUrl": "https://www.google.com/imgres?q=gateway%20of%20india%20&imgurl=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F3%2F3a%2FMumbai_03-2016_30_Gateway_of_India.jpg&imgrefurl=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FGateway_of_India&docid=jGjOztOIc5rjtM&tbnid=p1BSoniMcV79IM&vet=12ahUKEwjfwLzLgcSGAxWIR2wGHQ-AAhUQM3oECBUQAA..i&w=3585&h=3585&hcb=2&ved=2ahUKEwjfwLzLgcSGAxWIR2wGHQ-AAhUQM3oECBUQAA",
+      "latitude": 18.9220,
+      "longitude": 72.8347
+    },
+    {
+      "id": 3,
+      "name": "Golden Temple",
+      "city": "Amritsar",
+      "description": "The holiest shrine of the Sikh religion.",
+      "imageUrl": "https://www.google.com/imgres?q=golden%20temple%20&imgurl=https%3A%2F%2Fimg.staticmb.com%2Fmbcontent%2Fimages%2Fuploads%2F2022%2F9%2Fgolden-temple_1663763909577.jpg&imgrefurl=https%3A%2F%2Fwww.magicbricks.com%2Fblog%2Fgolden-temple%2F129866.html&docid=r_WAQOerLU7kUM&tbnid=xE88SwhOgONxqM&vet=12ahUKEwjf5YbvgcSGAxURUGcHHZ3fGUUQM3oECH4QAA..i&w=989&h=662&hcb=2&ved=2ahUKEwjf5YbvgcSGAxURUGcHHZ3fGUUQM3oECH4QAA",
+      "latitude": 31.6200,
+      "longitude": 74.8765
+    }
+  ]
+  

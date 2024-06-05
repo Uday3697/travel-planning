@@ -7,7 +7,7 @@ import authReducer from './authSlice';
 
 const rootReducer = combineReducers({
   auth: persistReducer({ key: 'auth', storage: AsyncStorage }, authReducer),
-  // Add other reducers here
+  // we can add  other reducers here
 });
 
 const store = configureStore({
